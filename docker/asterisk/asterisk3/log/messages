@@ -1,0 +1,36 @@
+[Nov  4 03:25:00] Asterisk 18.11.2 built by buildozer @ build-3-16-x86_64 on a x86_64 running Linux on 2022-04-28 07:42:40 UTC
+[Nov  4 03:25:00] NOTICE[1] loader.c: 313 modules will be loaded.
+[Nov  4 03:25:00] NOTICE[1] cdr.c: CDR simple logging enabled.
+[Nov  4 03:25:00] ERROR[36] res_pjsip/config_system.c: There are no local system nameservers configured, resorting to system resolution
+[Nov  4 03:25:00] ERROR[36] res_pjsip/config_system.c: There are no local system nameservers configured, resorting to system resolution
+[Nov  4 03:25:00] WARNING[1] res_phoneprov.c: Unable to find a valid server address or name.
+[Nov  4 03:25:00] NOTICE[1] res_smdi.c: No SMDI interfaces are available to listen on, not starting SMDI listener.
+[Nov  4 03:25:00] ERROR[1] file.c: Error opening directory - /var/lib/asterisk/moh: No such file or directory
+[Nov  4 03:25:00] WARNING[1] res_musiconhold.c: No music on hold classes configured, disabling music on hold.
+[Nov  4 03:25:00] NOTICE[1] chan_skinny.c: Configuring skinny from skinny.conf
+[Nov  4 03:25:00] ERROR[1] ari/config.c: No configured users for ARI
+[Nov  4 03:25:00] NOTICE[1] confbridge/conf_config_parser.c: Adding default_menu menu to app_confbridge
+[Nov  4 03:25:00] NOTICE[1] cel_custom.c: No mappings found in cel_custom.conf. Not logging CEL to custom CSVs.
+[Nov  4 03:25:00] WARNING[1] pbx.c: Context 'local' tries to include nonexistent context 'iaxtel700'
+[Nov  4 03:25:00] WARNING[1] loader.c: Some non-required modules failed to load.
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'res_monitor.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'res_adsi.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'app_url.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'app_getcpeid.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'chan_oss.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'app_ices.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'app_adsiprog.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'app_image.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] WARNING[1] loader.c: The deprecated module 'app_nbscat.so' has been loaded and is running, it may be removed in a future version
+[Nov  4 03:25:00] ERROR[1] loader.c: Failed to resolve dependencies for res_stir_shaken
+[Nov  4 03:25:00] ERROR[1] loader.c: res_stir_shaken declined to load.
+[Nov  4 03:25:00] ERROR[1] loader.c: cel_sqlite3_custom declined to load.
+[Nov  4 03:25:00] ERROR[1] loader.c: cdr_sqlite3_custom declined to load.
+[Nov  4 03:25:00] ERROR[1] loader.c: Failed to resolve dependencies for res_http_media_cache
+[Nov  4 03:25:00] ERROR[1] loader.c: res_http_media_cache declined to load.
+[Nov  4 03:25:00] ERROR[1] loader.c: Failed to resolve dependencies for res_pjsip_stir_shaken
+[Nov  4 03:25:00] ERROR[1] loader.c: res_pjsip_stir_shaken declined to load.
+[Nov  4 07:59:40] WARNING[100] chan_sip.c: chan_sip has no official maintainer and is deprecated.  Migration to
+[Nov  4 07:59:40] WARNING[100] chan_sip.c: chan_pjsip is recommended.  See guides at the Asterisk Wiki:
+[Nov  4 07:59:40] WARNING[100] chan_sip.c: https://wiki.asterisk.org/wiki/display/AST/Migrating+from+chan_sip+to+res_pjsip
+[Nov  4 07:59:40] WARNING[100] chan_sip.c: https://wiki.asterisk.org/wiki/display/AST/Configuring+res_pjsip

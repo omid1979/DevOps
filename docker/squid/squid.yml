@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  asterisk:
+    image: squid:latest
+    container_name: squid 
+    hostname: squid
+      #    volumes:
+      #      - "/opt/docker-sample/squid/config:/etc/squid:rw"
+      #      - "/opt/docker-sample/squid/log:/var/log/squid:rw"
+      #    command:
+      #- /bin/bash
+      #- -c
+      #- |
+      #  squid -DF
+
+    ports:
+      - "3128:3128"
+
+    network_mode: host

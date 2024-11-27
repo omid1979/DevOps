@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-proxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zabbix-proxy
+  template:
+    metadata:
+      labels:
+        app: zabbix-proxy
+    spec:
+      containers:
+      - name: zabbix-proxy
+        image: zabbix/zabbix-proxy-pgsql:latest
+        env:
+        - name: DB_SERVER_HOST
+          value: "zabbix-postgres"
+        - name: POSTGRES_USER
+          value: "zabbix"
+        - name: POSTGRES_PASSWORD
+          value: "zabbix_pass"
+        ports:
+        - containerPort: 10051        
+

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: 127.0.0.1:8085/repository/docker/elasticsearch:8.15.1
+    container_name: elasticsearch
+    environment:
+      - cluster.name=es-docker-cluster
+      - bootstrap.memory_lock=true
+      - xpack.security.enrollment.enabled=true
+      - xpack.security.enabled=true
+        #      - xpack.security.http.ssl.enabled=true
+        #      - xpack.security.transport.ssl.enabled=true
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g  # Set heap size for Elasticsearch
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - KIBANA_SYSTEM_PASSWORD=${KIBANA_SYSTEM_PASSWORD}
+    
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /opt/STORAGE/esdata:/usr/share/elasticsearch/data
+        #      - ./setup_script.sh:/setup_script.sh
+        #    command: ["/bin/bash", "/setup_script.sh"]
+    ports:
+      - "9200:9200"  # Elasticsearch HTTP
+
+    restart: always
+      ### curl -X POST -u elastic:cluster "http://localhost:9200/_security/user/kibana_system/_password" -H "Content-Type: application/json" -d '{"password": "cluster"}
+  kibana:
+    image: 127.0.0.1:8085/repository/docker/kibana:8.15.1
+    container_name: kibana
+    environment:
+        - ELASTICSEARCH_URL=http://elasticsearch:9200
+        - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+        - ELASTICSEARCH_USERNAME=kibana_system
+        - ELASTICSEARCH_PASSWORD=${KIBANA_SYSTEM_PASSWORD}
+    ports:
+        - "5601:5601"  # Kibana web interface
+    depends_on:
+        - elasticsearch
+    restart: always
+
+volumes:
+  esdata:
+

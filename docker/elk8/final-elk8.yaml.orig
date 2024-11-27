@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: 127.0.0.1:8085/repository/docker/elasticsearch:8.15.1
+    container_name: elasticsearch
+    environment:
+      - cluster.name=es-docker-cluster
+      - bootstrap.memory_lock=true
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g  # Set heap size for Elasticsearch
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /opt/STORAGE/esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"  # Elasticsearch HTTP
+    restart: always
+
+  kibana:
+    image: 127.0.0.1:8085/repository/docker/kibana:8.15.1
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=cluster ####${KIBANA_PASSWORD}
+
+    ports:
+      - "5601:5601"  # Kibana web interface
+    depends_on:
+      - elasticsearch
+    restart: always
+
+  logstash:
+    image: 127.0.0.1:8085/repository/docker/logstash:8.15.1
+    container_name: logstash
+    environment:
+      - LS_JAVA_OPTS=-Xms1g -Xmx1g  # Set heap size for Logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline  # Logstash pipeline configuration
+    ports:
+      - "5044:5044"  # Logstash Beats input
+    depends_on:
+      - elasticsearch
+    restart: always
+
+volumes:
+  esdata:
+

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  asterisk:
+    build: .
+    ports:
+      - "5060:5060"
+      - "5061:5061"
+      - "10000-20000:10000-20000/udp"
+    volumes:
+      - ./asterisk-config:/etc/asterisk
+    networks:
+      - asterisk-network
+
+networks:
+  asterisk-network:
+    driver: bridge
+

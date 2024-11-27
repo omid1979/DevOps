@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  gitlab:
+    image: 127.0.0.1:8085/repository/docker/gitlab-ce:latest
+    container_name: gitlab
+    restart: always
+    hostname: '192.168.43.163'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        # Add any other gitlab.rb configuration here, each on its own line
+        external_url 'https://192.168.43.163:40443'
+    ports:
+      - '8080:80'
+      - '80443:443'
+      - '8022:22'
+    volumes:
+      - '/opt/docker-sample/gitlab-project/config:/etc/gitlab'
+      - '/opt/docker-sample/gitlab-project/logs:/var/log/gitlab'
+      - '/opt/docker-sample/gitlab-project/data:/var/opt/gitlab'
+    #shm_size: '256m'

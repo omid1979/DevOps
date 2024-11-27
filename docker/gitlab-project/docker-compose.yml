@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  gitlab:
+    image: gitlab-ce:latest
+    restart: always
+    hostname: gitlab.example.com
+    container_name: GitLAB
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://172.28.0.2'
+        nginx['redirect_http_to_https'] = true
+        nginx['ssl_certificate'] = "/etc/gitlab/server.cert"
+        nginx['ssl_certificate_key'] = "/etc/gitlab/server.key"
+        gitlab_rails['gitlab_shell_ssh_port'] = 10022
+    ports:
+      - "81:80"
+      - "443:443"
+      - "10022:22"
+    volumes:
+      - gitlab_data:/var/opt/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_config:/etc/gitlab
+    networks:
+      my_custom_network:
+        ipv4_address: 172.28.0.2
+
+  nexus:
+    image: sonatype/nexus3
+    restart: always
+    container_name: Nexus
+    ports:
+      - "8081:8081"
+      - "9000:9000"
+    volumes:
+      - nexus_data:/nexus-data
+    networks:
+      my_custom_network:
+        ipv4_address: 172.28.0.3
+
+  gitlab-runner:
+    image: gitlab-runner:latest
+    container_name: GitLAB-Runner  
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - gitlab-runner-config:/etc/gitlab-runner
+    networks:
+      my_custom_network:
+        ipv4_address: 172.28.0.4
+
+networks:
+  my_custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  gitlab_data:
+  gitlab_logs:
+  gitlab_config:
+  nexus_data:
+  gitlab-runner-config:
+
+

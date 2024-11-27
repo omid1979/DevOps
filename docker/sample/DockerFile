@@ -1,0 +1,11 @@
+# Use an official Asterisk image as a base
+FROM mlan/asterisk:latest
+
+# Set environment variables if needed
+ENV ASTERISK_VERSION=18
+
+# Expose necessary ports
+EXPOSE 5060 5061 10000-20000/udp
+
+# Start Asterisk
+CMD ["asterisk", "-f"]

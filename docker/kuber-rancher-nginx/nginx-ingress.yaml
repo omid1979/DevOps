@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+spec:
+  ingressClassName: haproxy # Ensure this matches your HAProxy ingress class.
+  rules:
+    - host: ha.site.local # Replace with your domain or IP address.
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: nginx-service # The service created for NGINX.
+                port:
+                  number: 80
+
