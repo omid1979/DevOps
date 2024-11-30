@@ -1,0 +1,19 @@
+PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
+
+<users>
+    <!-- If user name was not specified, 'default' user is used. -->
+    <user_name>
+        <password></password>
+        <!-- Or -->
+        <password_sha256_hex></password_sha256_hex>
+
+
+
+
+ssh-key
+
+<ssh_key>
+     <type>ssh-ed25519</type>
+     <base64_key>AAAAC3NzaC1lZDI1NTE5AAAAIDNf0r6vRl24Ix3tv2IgPmNPO2ATa2krvt80DdcTatLj</base64_key>
+ </ssh_key>
+
