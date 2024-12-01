@@ -1,0 +1,121 @@
+  version: '3'
+
+  services:
+    clickhouse:
+      image: docker.arvancloud.ir/clickhouse/clickhouse-server
+      #image: clickhouse/clickhouse-server:23.6.1-alpine
+      container_name: clickhouse
+      ports:
+        - 8123:8123
+        - 9000:9000
+      volumes:
+        - ./clickhouse:/docker-entrypoint-initdb.d
+      environment:
+        - CLICKHOUSE_USER=admin
+        - CLICKHOUSE_PASSWORD=public
+
+    emqx1:
+      image: docker.arvancloud.ir/emqx:latest 
+      environment:
+      - "EMQX_NODE__NAME=emqxnode1"
+      - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+      - "EMQX_CLUSTER__STATIC__SEEDS=[emqxnode1, emqxnode2]"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=mysecret"
+      container_name: emqx1
+      healthcheck:
+        test: [ "CMD", "emqx", "ping" ]
+        interval: 10s
+        timeout: 10s
+        retries: 12
+      ports:
+        - 1883:1883
+        - 18083:18083
+      networks:
+        emqx-bridge:
+          aliases:
+          - emxnode1
+      volumes:
+          - emqx1-data:/opt/emqx/data
+          - emqx1-log:/opt/emqx/log
+      depends_on:
+        clickhouse:
+          condition: service_started
+
+    emqx2:
+      image: docker.arvancloud.ir/emqx:latest
+      environment:
+      - "EMQX_NODE__NAME=emqxnode2"
+      - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+      - "EMQX_CLUSTER__STATIC__SEEDS=[emqxnode1, emqxnode2]"
+      - "EMQX_DASHBOARD__DEFAULT_PASSWORD=mysecret"
+      container_name: emqx1
+      healthcheck:
+        test: [ "CMD", "emqx", "ping" ]
+        interval: 10s
+        timeout: 10s
+        retries: 12
+      ports:
+        - 1883:1883
+        - 18083:18083
+      networks:
+        emqx-bridge:
+          aliases:
+          - emxnode2
+      volumes:
+          - emqx2-data:/opt/emqx/data
+          - emqx2-log:/opt/emqx/log
+
+    grafana:
+      image: docker.arvancloud.ir/grafana/grafana 
+        #image: grafana/grafana:9.3.2
+      container_name: grafana
+      ports:
+        - 3000:3000
+      environment:
+        - GF_SECURITY_ADMIN_PASSWORD=public
+        - GF_INSTALL_PLUGINS=grafana-clickhouse-datasource
+      volumes:
+        - $PWD/grafana-dashboards:/grafana-dashboard-charging-station
+        - $PWD/grafana-provisioning/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+        - $PWD/grafana-provisioning/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      depends_on:
+        emqx-enterprise:
+          condition: service_healthy
+        clickhouse:
+          condition: service_started
+volumes:
+  vol-emqx-data:
+    name: foo-emqx-data
+  vol-emqx-log:
+    name: foo-emqx-log
+
+  networks:
+    emqx-bridge:
+      driver: bridge
+
+#;------------------------------------------------------
+   mqttx-simulate:
+      image: emqx/mqttx-cli:v1.9.9
+      container_name: mqttx-simulate
+      volumes:
+        - $PWD/mqttx/charging.js:/app/mqttx-simulate/charging.js
+      command:
+        - /bin/sh
+        - -c
+        - |
+          mqttx simulate --file /app/mqttx-simulate/charging.js -c 5 -h emqx-enterprise -im 100
+      depends_on:
+        emqx-enterprise:
+          condition: service_healthy
+  
+    mqttx:
+      image: emqx/mqttx-cli:v1.9.9
+      container_name: mqttx
+      command:
+        - /bin/sh
+        - -c
+        - |
+          mqttx sub -t 'mqttx/simulate/#' -v -h emqx-enterprise
+      depends_on:
+        emqx-enterprise:
+          condition: service_healthy
