@@ -107,4 +107,7 @@ ORDER BY price DESC
 LIMIT 100
 
 
+ALTER TABLE uk_price_paid
+    MATERIALIZE PROJECTION projection_by_year_district_town
+SETTINGS mutations_sync = 1
 
