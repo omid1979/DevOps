@@ -1,0 +1,23 @@
+version: '3'
+services:
+  nginx1:
+    image: nginx:alpine
+    ports:
+      - "2081:80"
+    volumes:
+      - ./nginx1.conf:/etc/nginx/nginx.conf:ro
+
+  nginx2:
+    image: nginx:alpine
+    ports:
+      - "2082:80"
+    volumes:
+      - ./nginx2.conf:/etc/nginx/nginx.conf:ro
+
+  nginx3:
+    image: nginx:alpine
+    ports:
+      - "2083:80"
+    volumes:
+      - ./nginx3.conf:/etc/nginx/nginx.conf:ro
+
