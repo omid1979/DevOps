@@ -2,13 +2,13 @@ version: '2'
 
 services:
   zookeeper:
-    image: zookeeper:latest #docker.arvancloud.ir/wurstmeister/zookeeper:latest
+    image: docker.arvancloud.ir/wurstmeister/zookeeper:latest
     container_name: zookeeper
     ports:
       - "2181:2181"
 
   kafka:
-    image: kafka:latest ##docker.arvancloud.ir/wurstmeister/kafka:latest
+    image: docker.arvancloud.ir/wurstmeister/kafka:latest
     container_name: kafka
     ports:
       - "9092:9092"
