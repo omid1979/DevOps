@@ -1,0 +1,192 @@
+version: '3'
+
+services:
+  minio1:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data1-1:/data1
+      - data1-2:/data2
+      - data1-3:/data3
+      - data1-4:/data4
+    networks:
+      - minio_distributed
+
+  minio2:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data2-1:/data1
+      - data2-2:/data2
+      - data2-3:/data3
+      - data2-4:/data4
+    networks:
+      - minio_distributed
+
+  minio3:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data3-1:/data1
+      - data3-2:/data2
+      - data3-3:/data3
+      - data3-4:/data4
+    networks:
+      - minio_distributed
+
+  minio4:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data4-1:/data1
+      - data4-2:/data2
+      - data4-3:/data3
+      - data4-4:/data4
+    networks:
+      - minio_distributed
+
+  minio5:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data5-1:/data1
+      - data5-2:/data2
+      - data5-3:/data3
+      - data5-4:/data4
+    networks:
+      - minio_distributed
+
+  minio6:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data6-1:/data1
+      - data6-2:/data2
+      - data6-3:/data3
+      - data6-4:/data4
+    networks:
+      - minio_distributed
+
+  minio7:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data7-1:/data1
+      - data7-2:/data2
+      - data7-3:/data3
+      - data7-4:/data4
+    networks:
+      - minio_distributed
+
+  minio8:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data8-1:/data1
+      - data8-2:/data2
+      - data8-3:/data3
+      - data8-4:/data4
+    networks:
+      - minio_distributed
+
+  minio9:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data9-1:/data1
+      - data9-2:/data2
+      - data9-3:/data3
+      - data9-4:/data4
+    networks:
+      - minio_distributed
+
+  minio10:
+    image: minio
+    command: server --console-address ":9001" http://minio{1...10}/data{1...4}
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - data10-1:/data1
+      - data10-2:/data2
+      - data10-3:/data3
+      - data10-4:/data4
+    networks:
+      - minio_distributed
+
+volumes:
+  data1-1:
+  data1-2:
+  data1-3:
+  data1-4:
+  data2-1:
+  data2-2:
+  data2-3:
+  data2-4:
+  data3-1:
+  data3-2:
+  data3-3:
+  data3-4:
+  data4-1:
+  data4-2:
+  data4-3:
+  data4-4:
+  data5-1:
+  data5-2:
+  data5-3:
+  data5-4:
+  data6-1:
+  data6-2:
+  data6-3:
+  data6-4:
+  data7-1:
+  data7-2:
+  data7-3:
+  data7-4:
+  data8-1:
+  data8-2:
+  data8-3:
+  data8-4:
+  data9-1:
+  data9-2:
+  data9-3:
+  data9-4:
+  data10-1:
+  data10-2:
+  data10-3:
+  data10-4:
+
+networks:
+  minio_distributed:
+    driver: bridge
+

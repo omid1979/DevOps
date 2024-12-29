@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+
+<properties>
+
+    <entry key='config.default'>./conf/default.xml</entry>
+    <entry key='database.driver'>com.mysql.jdbc.Driver</entry> 
+    <entry key='database.url'>jdbc:mysql://localhost:3306/traccar?serverTimezone=UTC&amp;useSSL=false&amp;allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;sessionVariables=sql_mode=''</entry>
+    <entry key='database.user'>traccar</entry> 
+    <entry key='database.password'>1254785454XXXXXXXXXXX</entry>
+
+    <entry key='mail.smtp.host'>smtp.gmail.com</entry>
+    <entry key='mail.smtp.port'>465</entry>
+    <entry key='mail.smtp.ssl.enable'>true</entry>
+    <entry key='mail.smtp.from'>track@track.net</entry>
+    <entry key='mail.smtp.auth'>true</entry>
+    <entry key='mail.smtp.username'>track@track.net</entry>
+    <entry key='mail.smtp.password'>mkmt.vix.</entry>
+    <entry key='event.motion.speedThreshold'>0.03</entry>
+    <entry key='event.enable'>true</entry>
+    <entry key='speedLimit'>60</entry>
+    <entry key='web.url'>https://www.track.com.br/</entry>
+    <entry key='suntech.timeout'>1900</entry>
+    <entry key='osmand.timeout'>400</entry>
+    <entry key='status.timeout'>2500</entry>
+    <entry key='geocoder.enable'>true</entry>
+    <entry key='geocoder.type'>google</entry>
+    <entry key='geocoder.cacheSize'>25000</entry>
+    <entry key='geocoder.ignorePositions'>true</entry>
+    <entry key='geocoder.key'>AIzaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXI</entry>
+    <entry key='geocoder.language'>pt_BR</entry>
+ <!--   <entry key='geocoder.format'>%r, %t, %d, %s - %c</entry> -->
+    <entry key='geocoder.format'> %f </entry>
+    <entry key='database.positionsHistoryDays'>90</entry>
+    <entry key='notificator.types'>web,mail,firebase</entry>
+    <entry key='notificator.firebase.key'>AIzaXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</entry>
+    <entry key='processing.remoteAddress.enable'>true</entry>
+    <entry key='notificator.types'>mail,telegram,web</entry>
+    <entry key='notificator.telegram.key'>80207XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</entry>
+    <entry key='notificator.telegram.chatId'>7XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</entry>
+</properties>
+
+
+

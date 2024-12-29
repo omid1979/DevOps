@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  redis-master:
+    image: docker.arvancloud.ir/redis:6.0.7
+    container_name: redis-master
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_master_data:/data
+
+  redis-slave-1:
+    image: docker.arvancloud.ir/redis:6.0.7
+    container_name: redis-slave-1
+    ports:
+      - "6380:6379"
+    command: redis-server --slaveof redis-master 6379 --appendonly yes
+    volumes:
+      - redis_slave1_data:/data
+
+  redis-slave-2:
+    image: docker.arvancloud.ir/redis:6.0.7
+    container_name: redis-slave-2
+    ports:
+      - "6381:6379"
+    command: redis-server --slaveof redis-master 6379 --appendonly yes
+    volumes:
+      - redis_slave2_data:/data
+
+  haproxy:
+    image: haproxy:latest
+    container_name: haproxy
+    ports:
+      - "85:85"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+
+volumes:
+  redis_master_data:
+  redis_slave1_data:
+  redis_slave2_data:
+

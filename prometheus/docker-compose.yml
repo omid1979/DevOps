@@ -1,0 +1,15 @@
+version: "3"
+services:
+        prom:
+                image: quay.io/prometheus/prometheus
+                volumes:
+                        - /path/to/file/prometheus.yml:/etc/prometheus/prometheus.yml
+                command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+                restart: always
+                ports:
+                        - 9090:9090
+        postgres:
+                image: wrouesnel/postgres_exporter
+                ports:
+                      - "9187:9187"
+                environment: DATA_SOURCE_NAME="postgresql://postgres:password@localhost:5432/?sslmode=disable"
