@@ -1,0 +1,10 @@
+omid@omid:/opt/git/DevOps/GIT$ cat /usr/bin/mygit-commit
+git config --global user.email "admin@omid-online.com"
+git config --global user.name  "Omid Hosseini"
+d=`date +%Y%m%d-%H%M%S`
+echo $d
+git add .
+git commit -m "$d" 
+git push
+
+
