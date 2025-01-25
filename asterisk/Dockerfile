@@ -5,6 +5,7 @@ RUN apt upgrade -y
 
 RUN apt install -y build-essential wget curl libncurses5-dev libssl-dev libxml2-dev uuid-dev sqlite3 libsqlite3-dev pkg-config libjansson-dev libedit-dev
 RUN apt install -y net-tools vim 
+RUN apt clean all 
 WORKDIR /usr/local/src
 
 # Getting, Building and Installing Asterisk
