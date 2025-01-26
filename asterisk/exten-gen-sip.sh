@@ -12,6 +12,20 @@ add_extension() {
 
     echo "[$ext_number]" >> $SIP_CONF
     echo "type=friend" >> $SIP_CONF
+    echo "trustrpid = yes" >> $SIP_CONF
+    echo "transport = udp">> $SIP_CONF
+    echo "qualifyfreq = 60">> $SIP_CONF
+    echo "qualify = yes" >> $SIP_CONF
+    echo "deny = 0.0.0.0/0.0.0.0">> $SIP_CONF 
+    echo "permit = 192.168.10.0/255.255.255.0" >> $SIP_CONF
+    echo "encryption = no" >> $SIP_CONF
+    echo "dtmfmode = rfc2833" >> $SIP_CONF
+    echo "dial = SIP/$ext_number" >> $SIP_CONF
+    echo "callerid = $ext_number" >> $SIP_CONF
+    echo "callgroup = 1" >> $SIP_CONF
+    echo "pickupgroup = 1">> $SIP_CONF
+    echo "callcounter = yes">> $SIP_CONF
+    echo "subscribecontext=BLF">> $SIP_CONF
     echo "context=$context" >> $SIP_CONF
     echo "host=dynamic" >> $SIP_CONF
     echo "secret=$auth_pass" >> $SIP_CONF

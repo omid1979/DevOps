@@ -4,7 +4,12 @@ RUN apt update
 RUN apt upgrade -y
 
 RUN apt install -y build-essential wget curl libncurses5-dev libssl-dev libxml2-dev uuid-dev sqlite3 libsqlite3-dev pkg-config libjansson-dev libedit-dev
+<<<<<<< HEAD
 RUN apt install -y net-tools vim isc-dhcp-server 
+=======
+RUN apt install -y net-tools vim 
+RUN apt clean all 
+>>>>>>> da93f724d99c08875b4ed59408633a234c78eb25
 WORKDIR /usr/local/src
 
 # Getting, Building and Installing Asterisk
