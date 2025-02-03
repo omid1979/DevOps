@@ -3,10 +3,10 @@ services:
     image: docker.arvancloud.ir/dockurr/windows
     container_name: windows
     environment:
-      VERSION: "http://192.168.43.163/iso/win11x64-enterprise-ltsc-eval.iso"   ###  Windows 11 LTS
+      #VERSION: "http://192.168.43.163/iso/win11x64-enterprise-ltsc-eval.iso"   ###  Windows 11 LTS
       #VERSION: "http://192.168.43.163/iso/en-us_windows_10_enterprise_ltsc_2021_x64_dvd_d289cf96.iso" ## Windows 10 LTS 
       #VERSION: "http://192.168.43.163/iso/Win11EntLTSC_24H2.2033_x64_Compact.iso"   ## Windows 11 LTS Lite   NOT WORK
-      #VERSION: "http://192.168.43.163/iso/SW_DVD9_Win_Server_STD_CORE_2025_24H2_64Bit_English_DC_STD_MLF_X23-81891.ISO"  ## Windows 2025 Server
+      VERSION: "http://192.168.43.163/iso/SW_DVD9_Win_Server_STD_CORE_2025_24H2_64Bit_English_DC_STD_MLF_X23-81891.ISO"  ## Windows 2025 Server
       RAM_SIZE: "6G"
       CPU_CORES: "4"
       REGION: "en-US"

@@ -1,0 +1,8 @@
+snmpget -v2c -c public localhost .1.3.6.1.4.1.12345.1
+
+
+snmpget -v3 -u myUser -l authPriv -a SHA -A authPassword -x AES -X privPassword localhost .1.3.6.1.4.1.12345.1
+
+:wq
+
+
