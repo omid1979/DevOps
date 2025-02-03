@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: elasticsearch:8.15.1
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elastic
+
+  logstash:
+    image: logstash:8.15.1
+    container_name: logstash
+    volumes:
+      - /opt/docker-sample/elk/elk-config/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /opt/docker-sample/elk/elk-config/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - /opt/docker-sample/elk/ls_data:/usr/share/logstash/data
+
+    ports:
+      - 5000:5000
+      - 9600:9600
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elastic
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: kibana:8.15.1
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - elastic
+    depends_on:
+      - elasticsearch
+
+        #  apm-server:
+#    image: apm-server:8.15.1
+#    container_name: apm-server
+#    ports:
+#      - 8200:8200
+#    environment:
+#      - output.elasticsearch.hosts=["elasticsearch:9200"]
+#    networks:
+#      - elastic
+#    depends_on:
+#      - elasticsearch
+#      - kibana
+
+networks:
+  elastic:
+    driver: bridge
+    
+volumes:
+  esdata:
+

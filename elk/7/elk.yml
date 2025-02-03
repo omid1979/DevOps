@@ -1,0 +1,81 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.9.1
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - /opt/docker-sample/elk/test_data:/usr/share/elasticsearch/data/
+      - /opt/docker-sample/elk/elk-config/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=cluster
+      - http.host=0.0.0.0
+      - transport.host=0.0.0.0
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - cluster.name=elasticsearch
+      - bootstrap.memory_lock=true
+    networks:
+      - elk
+
+  logstash:
+    image: logstash:7.9.1
+    container_name: logstash
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    volumes:
+      - /opt/docker-sample/elk/elk-config/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - /opt/docker-sample/elk/elk-config/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - /opt/docker-sample/elk/ls_data:/usr/share/logstash/data
+
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: kibana:7.9.1
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=cluster
+    volumes:
+      - /opt/docker-sample/elk/elk-config/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - /opt/docker-sample/elk/kb_data:/usr/share/kibana/data
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+  apm-server:
+    image : apm-server:7.9.1
+    container_name: apm_server
+    environment:
+      - ELASTIC_APM_SERVER_URL=http://elasticsearch:9200
+      - ELASTIC_APM_SERVER_SECRET_TOKEN=MqXpSnban58Rr38YnZS4SgP1078Mp1pnvF057instTo=
+      - ELASTIC_APM_SERVICE_NAME=APMService
+      - ELASTIC_APM_ENVIRONMENT=production
+    ports:
+      - 8200:8200 
+    volumes:
+      - /opt/docker-sample/elk/apm-config/apm-server/apm-server.yml:/usr/share/apm-server/apm-server.yml
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  test_data:
+  ls_data:
+  kb_data:
+
