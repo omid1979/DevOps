@@ -1,46 +1,68 @@
----
 version: '3'
 services:
-  opensearch-node1:
-    image: opensearchproject/opensearch:latest
+  opensearch-node1: 
+    image: opensearchproject/opensearch:latest 
     container_name: opensearch-node1
     environment:
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node1
-      - discovery.seed_hosts=opensearch-node1
-      - cluster.initial_cluster_manager_nodes=opensearch-node1
-      - bootstrap.memory_lock=true  
-      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m  # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - cluster.name=opensearch-cluster 
+      - node.name=opensearch-node1 
+      - discovery.seed_hosts=opensearch-node1 
+      - cluster.initial_cluster_manager_nodes=opensearch-node1  
+      - bootstrap.memory_lock=true 
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" 
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Cluster@76411 
     ulimits:
       memlock:
-        soft: -1
+        soft: -1 
         hard: -1
       nofile:
-        soft: 65536  # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        soft: 65536
         hard: 65536
     volumes:
       - opensearch-data1:/usr/share/opensearch/data
+      - ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml 
     ports:
-      - 9200:9200
-      - 9600:9600  # required for Performance Analyzer
+      - 9200:9200 # REST API
+      - 9600:9600 # Performance Analyzer
     networks:
       - opensearch-net
+  
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:latest
     container_name: opensearch-dashboards
     ports:
-      - 5601:5601
+      - 25601:5601 
     expose:
-      - '5601'
+      - "5601" 
     environment:
-      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200"]'    
+      OPENSEARCH_HOSTS: '["http://opensearch-node1:9200"]' 
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: Cluster@76411
     networks:
       - opensearch-net
+
+  logstash:
+    image: logstash:8.15.1
+    volumes:
+      - ./logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+      - ./logstash.conf:/usr/share/logstash/logstash.conf:ro,Z
+    ports:
+      - 5044:5044
+      - 5000:5000/tcp
+      - 5000:5000/udp
+      - 9800:9600
+    environment:
+      LS_JAVA_OPTS: -Xms256m -Xmx256m
+      LOGSTASH_INTERNAL_PASSWORD: Cluster@76411
+    networks:
+      - opensearch-net
+    depends_on:
+      - opensearch-node1
+    restart: unless-stopped
 
 volumes:
   opensearch-data1:
 
 networks:
   opensearch-net:
+
 
