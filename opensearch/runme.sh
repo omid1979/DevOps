@@ -7,3 +7,6 @@ echo "Running dashboard ...."
 
 #curl https://localhost:9200 -ku admin:Cluster@76411
 
+echo "Running logstesh ....." 
+docker run -d --name logstash -p 5000:5000/tcp -p 5044:5044 -p 514:514/udp -v ./logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z -v ./logstash.conf:/usr/share/logstash/logstash.conf:ro,Z -e "LOGSTASH_USER=logstash" -e "LOGSTASH_GROUP=logstash" logstash:8.15.1
+
