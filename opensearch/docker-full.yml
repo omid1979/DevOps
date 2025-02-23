@@ -5,6 +5,10 @@ services:
     image: opensearchproject/opensearch:latest
     container_name: opensearch
     environment:
+      - bootstrap.memory_lock=true                      ###
+      - plugins.security.disabled=true                  ### 
+      - plugins.security.ssl.http.enabled=false"        ###
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=Cluster@76411 ###        
       - discovery.type=single-node  # Single-node cluster for simplicity
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"  # JVM heap size
       - "DISABLE_SECURITY_PLUGIN=true"  # Disable security for demo; enable in production
@@ -28,7 +32,7 @@ services:
     container_name: opensearch-dashboards
     environment:
       - OPENSEARCH_HOSTS=http://opensearch:9200  # Connect to OpenSearch
-      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"  # Disable security for demo   ###
+        #- "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"  # Disable security for demo   ###
       - OPENSEARCH_USERNAME=admin
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD= Cluster@76411
         
