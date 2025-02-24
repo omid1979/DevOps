@@ -7,16 +7,17 @@ services:
     environment:
       - discovery.type=single-node  # Single-node cluster for simplicity
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"  # JVM heap size
-      - "DISABLE_SECURITY_PLUGIN=true"  # Disable security for demo; enable in production
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_INITIAL_ADMIN_PASSWORD=Cluster@76411" 
+      - "plugins.security.disabled=false"  
+      - "plugins.security.ssl.http.enabled=true" 
+      - "SERVER_HOST=0.0.0.0"
     volumes:
       - opensearch-data:/usr/share/opensearch/data  # Persistent storage for OpenSearch data
+      #- ./opensearch.yml:/usr/share/opensearch/config/opensearch.yml
     ports:
       - "9200:9200"  # OpenSearch REST API
       - "9600:9600"  # OpenSearch performance analyzer
@@ -27,11 +28,11 @@ services:
     image: opensearchproject/opensearch-dashboards:latest
     container_name: opensearch-dashboards
     environment:
-      - OPENSEARCH_HOSTS=http://opensearch:9200  # Connect to OpenSearch
-      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"  # Disable security for demo   ###
+      - OPENSEARCH_HOSTS=https://opensearch:9200  # Connect to OpenSearch
       - OPENSEARCH_USERNAME=admin
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD= Cluster@76411
-        
+      - OPENSEARCH_PASSWORD=Cluster@76411
+      - "SERVER_HOST=0.0.0.0"      
+      - "OPENSEARCH_DASHBOARDS_ENCRYPTION_KEY=X7K9P2M4Q8R5T1N6J3H0L5W9Y2B8V4Z6"
     ports:
       - "5601:5601"  # Dashboards UI
     depends_on:
@@ -44,7 +45,7 @@ services:
     container_name: logstash
     volumes:
       - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf  # Custom Logstash config
-      - logstash-data:/usr/share/logstash/data  # Persistent storage for Logstash
+      #- logstash-data:/usr/share/logstash/data  # Persistent storage for Logstash
     ports:
       - "514:514/udp"  # Syslog UDP port 1
       - "5140:5140/udp"  # Syslog UDP port 2 (additional port)

@@ -1,0 +1,11 @@
+---
+cluster.name: opensearch-cluster
+node.name: opensearch-node
+discovery.type: single-node
+
+plugins.security.disabled: false
+plugins.security.ssl.http.enabled: true
+plugins.security.allow_default_init_securityindex: true
+plugins.security.ssl.http.pemcert_filepath: config/certs/cert.pem  
+plugins.security.ssl.http.pemkey_filepath: config/certs/key.pem    
+plugins.security.ssl.http.pemtrustedcas_filepath: config/certs/ca.pem 
