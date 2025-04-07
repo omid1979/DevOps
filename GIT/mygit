@@ -5,4 +5,4 @@ git remote add origin https://github.com/omid1979/DevOps.git
 git push -u origin main    --> upload data to site
 git pull origin main       --> download last version from site
 omid1979
-ghp_oIdnG8a9KJuY1wSvBGdhu1kNUjByCt2jnXPC
+gphp_oIdnG8a9KJuY1wSvBGdhu1kNUjByCt2jnXPC
