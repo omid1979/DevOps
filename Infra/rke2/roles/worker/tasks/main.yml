@@ -1,0 +1,33 @@
+---
+- name: Install RKE2 agent
+  shell: curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sh -
+  args:
+    creates: /usr/local/bin/rke2
+  environment:
+    INSTALL_RKE2_VERSION: v1.28.3+rke2r1  # همان نسخه مستر
+
+- name: Create RKE2 config directory
+  file:
+    path: /etc/rancher/rke2
+    state: directory
+    mode: '0755'
+
+- name: Copy node token to worker
+  copy:
+    src: /tmp/rke2_node_token
+    dest: /etc/rancher/rke2/node-token
+    mode: '0600'
+
+- name: Configure RKE2 agent
+  copy:
+    content: |
+      server: https://192.168.122.101:9345
+      token: "{{ lookup('file', '/tmp/rke2_node_token') }}"
+    dest: /etc/rancher/rke2/config.yaml
+    mode: '0600'
+
+- name: Enable and start RKE2 agent
+  systemd:
+    name: rke2-agent
+    enabled: yes
+    state: started

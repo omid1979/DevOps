@@ -1,0 +1,87 @@
+---
+- name: Deploy RKE2 Kubernetes Cluster on Debian
+  hosts: k8s_cluster
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - wget
+          - tar
+            #- apparmor
+            #- apparmor-utils
+        state: present
+
+    - name: Disable swap
+      shell: swapoff -a
+      when: ansible_swaptotal_mb > 0
+
+    - name: Remove swap entry from /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        regexp: '^.*\sswap\s.*$'
+        state: absent
+
+    - name: Create RKE2 config directory
+      file:
+        path: "{{ rke2_config_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download RKE2 tarball
+      get_url:
+        url: "{{ rke2_download_url }}"
+        dest: /tmp/rke2.tar.gz
+        mode: '0644'
+
+    - name: Extract RKE2 tarball
+      unarchive:
+        src: /tmp/rke2.tar.gz
+        dest: /usr/local/bin
+        remote_src: yes
+        mode: '0755'
+
+    - name: Create RKE2 systemd service
+      template:
+        src: "{{ rke2_role }}.service.j2"
+        dest: "/etc/systemd/system/rke2-{{ rke2_role }}.service"
+        mode: '0644'
+      notify: Reload systemd
+
+    - name: Configure RKE2
+      template:
+        src: config.yaml.j2
+        dest: "{{ rke2_config_dir }}/config.yaml"
+        mode: '0600'
+
+    - name: Enable and start RKE2 service
+      systemd:
+        name: "rke2-{{ rke2_role }}"
+        enabled: yes
+        state: started
+
+    - name: Wait for RKE2 to be ready (masters only)
+      shell: /usr/local/bin/rke2 kubectl get nodes
+      register: rke2_ready
+      retries: 30
+      delay: 10
+      until: rke2_ready.rc == 0
+      when: rke2_role == "server"
+
+    - name: Copy kubeconfig to Ansible controller
+      fetch:
+        src: "{{ rke2_config_dir }}/rke2.yaml"
+        dest: "{{ rke2_kubeconf_path }}"
+        flat: yes
+      when: rke2_role == "server" and rke2_download_kubeconf and inventory_hostname == 'master-01'
+
+  handlers:
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes

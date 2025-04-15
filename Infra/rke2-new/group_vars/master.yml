@@ -1,0 +1,7 @@
+---
+rke2_role: server
+rke2_server_options:
+  - "tls-san: {{ rke2_api_ip }}"
+  - "node-label: nodetype=master"
+  - "write-kubeconfig-mode: 0644"
+

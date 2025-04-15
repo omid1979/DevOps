@@ -1,0 +1,43 @@
+---
+- name: Update apt cache and upgrade packages
+  apt:
+    update_cache: yes
+    upgrade: dist
+    cache_valid_time: 3600
+
+- name: Install required packages
+  apt:
+    name:
+      - curl
+      - wget
+      - vim
+      - apt-transport-https
+      - gnupg2
+      - net-tools
+      - sudo 
+    state: present
+
+- name: Disable swap
+  command: swapoff -a
+  when: ansible_swaptotal_mb > 0
+
+- name: Comment out swap in fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+.*)$'
+    replace: '#\1'
+
+- name: Set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Update /etc/hosts
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      192.168.122.101 rke-master
+      192.168.122.102 rke-worker1
+      192.168.122.103 rke-worker2
+      192.168.122.104 rke-worker3
+      192.168.122.105 rke-worker4
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"

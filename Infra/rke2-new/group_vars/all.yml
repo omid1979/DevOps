@@ -1,0 +1,14 @@
+ansible_user: root
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+
+# متغیرهای RKE2
+rke2_version: "v1.30.5+rke2r1"  # نسخه دلخواه RKE2
+rke2_download_url: "https://github.com/rancher/rke2/releases/download/{{ rke2_version }}/rke2.linux-amd64.tar.gz"
+rke2_token: "my-secret-token-1234567890"  # توکن برای اتصال نودها
+#rke2_api_ip: "192.168.1.100"  # IP مجازی برای HA (اختیاری)
+rke2_config_dir: "/etc/rancher/rke2"
+rke2_data_dir: "/var/lib/rancher/rke2"
+rke2_cni: "canal"
+rke2_download_kubeconf: true
+rke2_kubeconf_path: "/tmp/rke2.yaml"
+
