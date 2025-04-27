@@ -1,0 +1,505 @@
+=== CIS Security Audit Report ===
+Start Time: Sun Apr 27 09:05:25 AM +0330 2025
+Hostname: simorgh
+Current User: omid
+Kernel Version: 6.11.0-21-generic
+Server IP: 192.168.43.163
+
+=== System Information ===
+Distribution: Ubuntu 24.04.1 LTS
+Uptime:  09:05:25 up 5 days,  2:05,  1 user,  load average: 1.16, 1.47, 1.40
+CPU Cores: 12
+Total RAM: 15Gi
+
+=== User Analysis ===
+
+Users with valid shells:
+User: root - No home directory
+User: sync - No home directory
+User: omid - Home directory exists
+
+Users with sudo access:
+omid
+
+Last user logins:
+omid     pts/33       :0               Sun Apr 27 08:27   still logged in
+omid     pts/33       :0               Tue Apr 22 15:54 - 15:55  (00:00)
+omid     pts/32       :0               Tue Apr 22 15:54   still logged in
+omid     pts/31       :0               Tue Apr 22 15:53   still logged in
+omid     pts/30       :0               Tue Apr 22 15:52   still logged in
+omid     pts/29       :0               Tue Apr 22 15:41   still logged in
+omid     pts/29       :0               Tue Apr 22 15:26 - 15:41  (00:14)
+omid     pts/27       :0               Tue Apr 22 15:12   still logged in
+omid     pts/27       :0               Tue Apr 22 14:57 - 14:57  (00:00)
+omid     pts/3        :0               Tue Apr 22 14:53   still logged in
+
+=== SSH Configuration ===
+SSH configuration file not found at /etc/ssh/sshd_config
+
+=== Web Server Checks ===
+
+=== Apache HTTP Server ===
+[NOT INSTALLED] Apache is not installed
+
+=== Nginx HTTP Server ===
+[INSTALLED] Nginx is installed at: /usr/sbin/nginx
+
+Nginx Version:
+nginx version: nginx/1.24.0 (Ubuntu)
+
+Nginx Service Status:
+active
+Active
+
+Nginx Configuration Test:
+2025/04/27 09:05:25 [warn] 339399#339399: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:1
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+2025/04/27 09:05:25 [emerg] 339399#339399: open() "/run/nginx.pid" failed (13: Permission denied)
+nginx: configuration file /etc/nginx/nginx.conf test failed
+Nginx configuration test failed
+
+Nginx Server Blocks:
+total 4
+drwxr-xr-x 2 root root   21 Mar 12 13:24 .
+drwxr-xr-x 8 root root 4096 Apr  2 06:28 ..
+lrwxrwxrwx 1 root root   34 Mar 12 13:21 default -> /etc/nginx/sites-available/default
+
+Nginx Configuration Files:
+-rw-r--r-- 1 root root 423 Dec  1  2023 /etc/nginx/snippets/fastcgi-php.conf
+-rw-r--r-- 1 root root 217 Dec  1  2023 /etc/nginx/snippets/snakeoil.conf
+-rw-r--r-- 1 root root 1125 Dec  1  2023 /etc/nginx/fastcgi.conf
+-rw-r--r-- 1 root root 1446 Dec  1  2023 /etc/nginx/nginx.conf
+
+=== Firewall Configuration (iptables) ===
+
+iptables status:
+No iptables rules found
+
+NAT Rules:
+No NAT rules found
+
+Open Ports:
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 127.0.0.1:5900          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:5901          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:5902          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:5903          0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:902             0.0.0.0:*               LISTEN      -                   
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      -                   
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      -                   
+tcp        0      0 127.0.0.54:53           0.0.0.0:*               LISTEN      -                   
+tcp6       0      0 ::1:631                 :::*                    LISTEN      -                   
+tcp6       0      0 :::1716                 :::*                    LISTEN      2860/kdeconnectd    
+tcp6       0      0 :::902                  :::*                    LISTEN      -                   
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           9502/exe            
+udp        0      0 224.0.0.251:5353        0.0.0.0:*                           9502/exe            
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           -                   
+udp        0      0 0.0.0.0:46451           0.0.0.0:*                           -                   
+udp        0      0 0.0.0.0:38429           0.0.0.0:*                           -                   
+udp        0      0 0.0.0.0:47327           0.0.0.0:*                           -                   
+udp        0      0 192.168.122.1:53        0.0.0.0:*                           -                   
+udp        0      0 127.0.0.54:53           0.0.0.0:*                           -                   
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           -                   
+udp        0      0 0.0.0.0:67              0.0.0.0:*                           -                   
+udp        0      0 0.0.0.0:58428           0.0.0.0:*                           -                   
+udp        0      0 0.0.0.0:50950           0.0.0.0:*                           28964/kclient       
+udp        0      0 0.0.0.0:50985           0.0.0.0:*                           28964/kclient       
+udp6       0      0 :::5353                 :::*                                -                   
+udp6       0  13824 :::1716                 :::*                                2860/kdeconnectd    
+udp6       0      0 :::35018                :::*                                -                   
+
+=== Network Configuration ===
+
+Network Interfaces:
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp3s0           UP             192.168.43.163/24 fe80::ea9c:25ff:fe79:b626/64 
+wlp0s20f3        DOWN           
+virbr0           UP             192.168.122.1/24 
+docker0          DOWN           172.17.0.1/16 
+vnet7            UNKNOWN        fe80::fc54:ff:fef7:2520/64 
+vnet8            UNKNOWN        fe80::fc54:ff:fec6:b720/64 
+vnet9            UNKNOWN        fe80::fc54:ff:fe22:6eff/64 
+vnet10           UNKNOWN        fe80::fc54:ff:fe04:741a/64 
+tun0             UNKNOWN        10.255.0.26/21 fe80::842b:ef78:9ed1:57cb/64 
+enxf2989d25ae02  DOWN           
+
+Routing Table:
+default via 10.255.0.1 dev tun0 proto static metric 50 
+default via 192.168.43.1 dev enp3s0 proto dhcp src 192.168.43.163 metric 100 
+10.255.0.0/21 dev tun0 proto kernel scope link src 10.255.0.26 metric 50 
+89.235.64.0/22 via 192.168.43.1 dev tun0 proto static metric 50 
+89.235.64.54 via 192.168.43.1 dev enp3s0 
+172.16.0.0/12 via 192.168.43.1 dev tun0 proto static metric 50 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+172.29.134.0/24 via 192.168.43.1 dev enp3s0 
+172.29.134.30 via 192.168.43.1 dev enp3s0 
+185.135.28.0/24 via 192.168.43.1 dev enp3s0 
+185.135.28.0/22 via 192.168.43.1 dev tun0 proto static metric 50 
+185.135.28.40 via 192.168.43.1 dev enp3s0 
+192.168.0.0/16 via 192.168.43.1 dev enp3s0 
+192.168.0.0/16 via 192.168.43.1 dev tun0 proto static metric 50 
+192.168.3.14 via 192.168.43.1 dev enp3s0 
+192.168.43.0/24 dev enp3s0 proto kernel scope link src 192.168.43.163 metric 100 
+192.168.43.1 dev enp3s0 proto static scope link metric 50 
+192.168.43.1 dev tun0 proto static scope link metric 50 
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 
+198.55.53.60 via 192.168.43.1 dev enp3s0 proto static metric 50 
+
+Default Gateway:
+default via 10.255.0.1 dev tun0 proto static metric 50 
+default via 192.168.43.1 dev enp3s0 proto dhcp src 192.168.43.163 metric 100 
+
+DNS Configuration:
+# This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
+# Do not edit.
+#
+# This file might be symlinked as /etc/resolv.conf. If you're looking at
+# /etc/resolv.conf and seeing this text, you have followed the symlink.
+#
+# This is a dynamic resolv.conf file for connecting local clients to the
+# internal DNS stub resolver of systemd-resolved. This file lists all
+# configured search domains.
+#
+# Run "resolvectl status" to see details about the uplink DNS servers
+# currently in use.
+#
+# Third party programs should typically not access this file directly, but only
+# through the symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a
+# different way, replace this symlink by a static file or a different symlink.
+#
+# See man:systemd-resolved.service(8) for details about the supported modes of
+# operation for /etc/resolv.conf.
+
+nameserver 127.0.0.53
+options edns0 trust-ad
+search sic.net
+
+=== Filesystem Checks ===
+
+SUID/SGID Files:
+-rwxr-sr-x 1 root shadow 72184 Apr  9  2024 /usr/bin/chage
+-rwsr-xr-x 1 root root 72792 Apr  9  2024 /usr/bin/chfn
+-rwsr-xr-x 1 root root 44760 Apr  9  2024 /usr/bin/chsh
+-rwxr-sr-x 1 root crontab 39664 Mar 31  2024 /usr/bin/crontab
+-rwxr-sr-x 1 root shadow 27152 Apr  9  2024 /usr/bin/expiry
+-rwsr-xr-x 1 root root 39296 Apr  8  2024 /usr/bin/fusermount3
+-rwsr-xr-x 1 root root 76248 Apr  9  2024 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root 51584 Dec  5 05:56 /usr/bin/mount
+-rwsr-xr-x 1 root root 40664 Apr  9  2024 /usr/bin/newgrp
+-rwsr-xr-x 1 root root 30952 Apr  3  2024 /usr/bin/pkexec
+-rwsr-xr-x 1 root root 64152 Apr  9  2024 /usr/bin/passwd
+-rwxr-sr-x 1 root _ssh 309688 Apr 22 15:21 /usr/bin/ssh-agent
+-rwsr-xr-x 1 root root 55680 Dec  5 05:56 /usr/bin/su
+-rwsr-xr-x 1 root root 277936 Apr  8  2024 /usr/bin/sudo
+-rwsr-xr-x 1 root root 39296 Dec  5 05:56 /usr/bin/umount
+-rwsr-xr-x 1 root root 47416 Feb 25 19:00 /usr/bin/ksu.mit
+-rwsr-xr-x 1 root root 43240 Apr  1  2024 /usr/bin/tcptraceroute.mt
+-rwxr-sr-x 1 root plocate 313912 Apr 18  2024 /usr/bin/plocate
+-rwsr-xr-- 1 root messagebus 34960 Aug  9  2024 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root 342632 Apr 22 15:21 /usr/lib/openssh/ssh-keysign
+No SUID/SGID files found or search failed
+
+World Writable Files:
+-rw-rw-rw- 1 root root 9143 Apr 22 11:40 /etc/knsp/client.ini
+-rw-rw-rw- 1 root root 259 Aug  9  2022 /etc/knsp/netfilter.template
+-rw-rw-rw- 1 root root 3 Aug  9  2022 /etc/knsp/kips_dologing.txt
+-rw-rw-rw- 1 root root 403 Aug  9  2022 /etc/knsp/log_filter.txt
+-rw-rw-rw- 1 root root 539 Aug  9  2022 /etc/knsp/zones.ini
+-rw-rw-rw- 1 omid omid 86 Apr 15 14:41 /home/omid/.config/chromium/Variations
+-rw-rw-rw- 1 omid omid 131072 Apr 15 14:42 /home/omid/.config/chromium/Default/Visited Links
+-rw-rw-rw- 1 omid omid 13 Apr 15 14:41 /home/omid/.config/chromium/Last Version
+-rw-rw-rw- 1 omid omid 0 Apr 14 08:21 /home/omid/.config/chromium/First Run
+No world-writable files found or search failed
+
+Files with no owner:
+No orphaned files found or search failed
+
+=== Package Information ===
+
+Recent Updates:
+No recent apt upgrade found
+
+Upgradable Packages:
+Listing...
+acl/noble-updates 2.3.2-1build1.1 amd64 [upgradable from: 2.3.2-1build1]
+alsa-ucm-conf/noble-updates,noble-updates 1.2.10-1ubuntu5.4 all [upgradable from: 1.2.10-1ubuntu5]
+base-files/noble-updates 13ubuntu10.2 amd64 [upgradable from: 13ubuntu10.1]
+bluez-cups/noble-updates 5.72-0ubuntu5.1 amd64 [upgradable from: 5.72-0ubuntu5]
+bluez-obexd/noble-updates 5.72-0ubuntu5.1 amd64 [upgradable from: 5.72-0ubuntu5]
+bluez/noble-updates 5.72-0ubuntu5.1 amd64 [upgradable from: 5.72-0ubuntu5]
+bpftrace/noble-updates 0.20.2-1ubuntu4.3 amd64 [upgradable from: 0.20.2-1ubuntu4]
+chromium-common/noble 135.0.7049.114-1xtradeb1.2404.1 amd64 [upgradable from: 133.0.6943.98-1xtradeb1.2404.1]
+chromium-sandbox/noble 135.0.7049.114-1xtradeb1.2404.1 amd64 [upgradable from: 133.0.6943.98-1xtradeb1.2404.1]
+chromium/noble 135.0.7049.114-1xtradeb1.2404.1 amd64 [upgradable from: 133.0.6943.98-1xtradeb1.2404.1]
+cloud-init/noble-updates,noble-updates 24.4.1-0ubuntu0~24.04.2 all [upgradable from: 24.1.3-0ubuntu3.3]
+cups-browsed/noble-updates 2.0.0-0ubuntu10.3 amd64 [upgradable from: 2.0.0-0ubuntu10.2]
+distro-info-data/noble-updates,noble-updates 0.60ubuntu0.2 all [upgradable from: 0.60ubuntu0.1]
+dmeventd/noble-updates 2:1.02.185-3ubuntu3.2 amd64 [upgradable from: 2:1.02.185-3ubuntu3.1]
+dmidecode/noble-updates 3.5-3ubuntu0.1 amd64 [upgradable from: 3.5-3build1]
+dmsetup/noble-updates 2:1.02.185-3ubuntu3.2 amd64 [upgradable from: 2:1.02.185-3ubuntu3.1]
+dns-root-data/noble-updates,noble-updates 2024071801~ubuntu0.24.04.1 all [upgradable from: 2023112702~willsync1]
+dracut-install/noble-updates 060+5-1ubuntu3.3 amd64 [upgradable from: 060+5-1ubuntu3.2]
+firefox/noble 1:136.0+build3-1xtradeb1.2404.1 amd64 [upgradable from: 1:134.0+build1-1xtradeb1.2404.1]
+firmware-sof-signed/noble-updates,noble-updates 2023.12.1-1ubuntu1.4 all [upgradable from: 2023.12.1-1ubuntu1.3]
+fonts-noto-color-emoji/noble-updates,noble-updates 2.047-0ubuntu0.24.04.1 all [upgradable from: 2.042-1]
+fwupd/noble-updates 1.9.28-0ubuntu1~24.04.1 amd64 [upgradable from: 1.9.16-1]
+gir1.2-gtk-3.0/noble-updates 3.24.41-4ubuntu1.3 amd64 [upgradable from: 3.24.41-4ubuntu1.2]
+gir1.2-gtk-4.0/noble-updates 4.14.2+ds-1ubuntu2 amd64 [upgradable from: 4.14.2+ds-1ubuntu1]
+gir1.2-nm-1.0/noble-updates 1.46.0-1ubuntu2.2 amd64 [upgradable from: 1.46.0-1ubuntu2]
+gir1.2-packagekitglib-1.0/noble-updates 1.2.8-2ubuntu1.2 amd64 [upgradable from: 1.2.8-2build3]
+gir1.2-polkit-1.0/noble-updates 124-2ubuntu1.24.04.2 amd64 [upgradable from: 124-2ubuntu1]
+gstreamer1.0-packagekit/noble-updates 1.2.8-2ubuntu1.2 amd64 [upgradable from: 1.2.8-2build3]
+gstreamer1.0-pipewire/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+gtk-update-icon-cache/noble-updates 3.24.41-4ubuntu1.3 amd64 [upgradable from: 3.24.41-4ubuntu1.2]
+initramfs-tools-bin/noble-updates 0.142ubuntu25.5 amd64 [upgradable from: 0.142ubuntu25.1]
+initramfs-tools-core/noble-updates,noble-updates 0.142ubuntu25.5 all [upgradable from: 0.142ubuntu25.1]
+initramfs-tools/noble-updates,noble-updates 0.142ubuntu25.5 all [upgradable from: 0.142ubuntu25.1]
+kmod/noble-updates 31+20240202-2ubuntu7.1 amd64 [upgradable from: 31+20240202-2ubuntu7]
+language-pack-en-base/noble-updates,noble-updates 1:24.04+20250130 all [upgradable from: 1:24.04+20240817]
+language-pack-en/noble-updates,noble-updates 1:24.04+20250130 all [upgradable from: 1:24.04+20240817]
+language-pack-gnome-en-base/noble-updates,noble-updates 1:24.04+20250130 all [upgradable from: 1:24.04+20240817]
+language-pack-gnome-en/noble-updates,noble-updates 1:24.04+20250130 all [upgradable from: 1:24.04+20240817]
+ldap-utils/noble-updates 2.6.7+dfsg-1~exp1ubuntu8.2 amd64 [upgradable from: 2.6.7+dfsg-1~exp1ubuntu8.1]
+libacl1/noble-updates 2.3.2-1build1.1 amd64 [upgradable from: 2.3.2-1build1]
+libaio1t64/noble-updates 0.3.113-6build1.1 amd64 [upgradable from: 0.3.113-6build1]
+libattr1/noble-updates 1:2.5.2-1build1.1 amd64 [upgradable from: 1:2.5.2-1build1]
+libaudit-common/noble-updates,noble-updates 1:3.1.2-2.1build1.1 all [upgradable from: 1:3.1.2-2.1build1]
+libaudit1/noble-updates 1:3.1.2-2.1build1.1 amd64 [upgradable from: 1:3.1.2-2.1build1]
+libbluetooth3/noble-updates 5.72-0ubuntu5.1 amd64 [upgradable from: 5.72-0ubuntu5]
+libbsd0/noble-updates 0.12.1-1build1.1 amd64 [upgradable from: 0.12.1-1build1]
+libbsd0/noble-updates 0.12.1-1build1.1 i386 [upgradable from: 0.12.1-1build1]
+libdevmapper-event1.02.1/noble-updates 2:1.02.185-3ubuntu3.2 amd64 [upgradable from: 2:1.02.185-3ubuntu3.1]
+libdevmapper1.02.1/noble-updates 2:1.02.185-3ubuntu3.2 amd64 [upgradable from: 2:1.02.185-3ubuntu3.1]
+libdrm-amdgpu1/noble-updates 2.4.122-1~ubuntu0.24.04.1 amd64 [upgradable from: 2.4.120-2build1]
+libdrm-amdgpu1/noble-updates 2.4.122-1~ubuntu0.24.04.1 i386 [upgradable from: 2.4.120-2build1]
+libdrm-common/noble-updates,noble-updates 2.4.122-1~ubuntu0.24.04.1 all [upgradable from: 2.4.120-2build1]
+libdrm-intel1/noble-updates 2.4.122-1~ubuntu0.24.04.1 amd64 [upgradable from: 2.4.120-2build1]
+libdrm-intel1/noble-updates 2.4.122-1~ubuntu0.24.04.1 i386 [upgradable from: 2.4.120-2build1]
+libdrm-nouveau2/noble-updates 2.4.122-1~ubuntu0.24.04.1 amd64 [upgradable from: 2.4.120-2build1]
+libdrm-nouveau2/noble-updates 2.4.122-1~ubuntu0.24.04.1 i386 [upgradable from: 2.4.120-2build1]
+libdrm-radeon1/noble-updates 2.4.122-1~ubuntu0.24.04.1 amd64 [upgradable from: 2.4.120-2build1]
+libdrm-radeon1/noble-updates 2.4.122-1~ubuntu0.24.04.1 i386 [upgradable from: 2.4.120-2build1]
+libdrm2/noble-updates 2.4.122-1~ubuntu0.24.04.1 amd64 [upgradable from: 2.4.120-2build1]
+libdrm2/noble-updates 2.4.122-1~ubuntu0.24.04.1 i386 [upgradable from: 2.4.120-2build1]
+libegl-mesa0/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+libfprint-2-2/noble-updates 1:1.94.7+tod1-0ubuntu5~24.04.3 amd64 [upgradable from: 1:1.94.7+tod1-0ubuntu5~24.04.1]
+libfprint-2-tod1/noble-updates 1:1.94.7+tod1-0ubuntu5~24.04.3 amd64 [upgradable from: 1:1.94.7+tod1-0ubuntu5~24.04.1]
+libfwupd2/noble-updates 1.9.28-0ubuntu1~24.04.1 amd64 [upgradable from: 1.9.16-1]
+libgbm1/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+libgbm1/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+libgdm1/noble-updates 46.2-1ubuntu1~24.04.1 amd64 [upgradable from: 46.0-2ubuntu1]
+libgl1-mesa-dri/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+libgl1-mesa-dri/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+libglapi-mesa/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+libglapi-mesa/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+libglx-mesa0/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+libglx-mesa0/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+libgmp10/noble-updates 2:6.3.0+dfsg-2ubuntu6.1 amd64 [upgradable from: 2:6.3.0+dfsg-2ubuntu6]
+libgmp10/noble-updates 2:6.3.0+dfsg-2ubuntu6.1 i386 [upgradable from: 2:6.3.0+dfsg-2ubuntu6]
+libgnome-bluetooth-ui-3.0-13/noble-updates 46.0-1ubuntu1 amd64 [upgradable from: 46.0-1build1]
+libgpg-error-l10n/noble-updates,noble-updates 1.47-3build2.1 all [upgradable from: 1.47-3build2]
+libgpg-error0/noble-updates 1.47-3build2.1 amd64 [upgradable from: 1.47-3build2]
+libgpg-error0/noble-updates 1.47-3build2.1 i386 [upgradable from: 1.47-3build2]
+libgtk-3-0t64/noble-updates 3.24.41-4ubuntu1.3 amd64 [upgradable from: 3.24.41-4ubuntu1.2]
+libgtk-3-0t64/noble-updates 3.24.41-4ubuntu1.3 i386 [upgradable from: 3.24.41-4ubuntu1.2]
+libgtk-3-bin/noble-updates 3.24.41-4ubuntu1.3 amd64 [upgradable from: 3.24.41-4ubuntu1.2]
+libgtk-3-common/noble-updates,noble-updates 3.24.41-4ubuntu1.3 all [upgradable from: 3.24.41-4ubuntu1.2]
+libgtk-4-1/noble-updates 4.14.2+ds-1ubuntu2 amd64 [upgradable from: 4.14.2+ds-1ubuntu1]
+libgtk-4-bin/noble-updates 4.14.2+ds-1ubuntu2 amd64 [upgradable from: 4.14.2+ds-1ubuntu1]
+libgtk-4-common/noble-updates,noble-updates 4.14.2+ds-1ubuntu2 all [upgradable from: 4.14.2+ds-1ubuntu1]
+libgtk-4-media-gstreamer/noble-updates 4.14.2+ds-1ubuntu2 amd64 [upgradable from: 4.14.2+ds-1ubuntu1]
+libidn2-0/noble-updates 2.3.7-2build1.1 amd64 [upgradable from: 2.3.7-2build1]
+libidn2-0/noble-updates 2.3.7-2build1.1 i386 [upgradable from: 2.3.7-2build1]
+libinput-bin/noble-updates 1.25.0-1ubuntu3 amd64 [upgradable from: 1.25.0-1ubuntu2]
+libinput10/noble-updates 1.25.0-1ubuntu3 amd64 [upgradable from: 1.25.0-1ubuntu2]
+libipa-hbac0t64/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+libisl23/noble-updates 0.26-3build1.1 amd64 [upgradable from: 0.26-3build1]
+libkmod2/noble-updates 31+20240202-2ubuntu7.1 amd64 [upgradable from: 31+20240202-2ubuntu7]
+libldap-common/noble-updates,noble-updates 2.6.7+dfsg-1~exp1ubuntu8.2 all [upgradable from: 2.6.7+dfsg-1~exp1ubuntu8.1]
+libldap2/noble-updates 2.6.7+dfsg-1~exp1ubuntu8.2 amd64 [upgradable from: 2.6.7+dfsg-1~exp1ubuntu8.1]
+libldap2/noble-updates 2.6.7+dfsg-1~exp1ubuntu8.2 i386 [upgradable from: 2.6.7+dfsg-1~exp1ubuntu8.1]
+liblvm2cmd2.03/noble-updates 2.03.16-3ubuntu3.2 amd64 [upgradable from: 2.03.16-3ubuntu3.1]
+libmalcontent-0-0/noble-updates 0.11.1-1ubuntu1.1 amd64 [upgradable from: 0.11.1-1ubuntu1]
+libmd0/noble-updates 1.1.0-2build1.1 amd64 [upgradable from: 1.1.0-2build1]
+libmd0/noble-updates 1.1.0-2build1.1 i386 [upgradable from: 1.1.0-2build1]
+libmpc3/noble-updates 1.3.1-1build1.1 amd64 [upgradable from: 1.3.1-1build1]
+libmpfr6/noble-updates 4.2.1-1build1.1 amd64 [upgradable from: 4.2.1-1build1]
+libnautilus-extension4/noble-updates 1:46.2-0ubuntu0.3 amd64 [upgradable from: 1:46.2-0ubuntu0.2]
+libnetplan1/noble-updates 1.1.2-2~ubuntu24.04.1 amd64 [upgradable from: 1.0.1-1ubuntu2~24.04.1]
+libnfsidmap1/noble-updates 1:2.6.4-3ubuntu5.1 amd64 [upgradable from: 1:2.6.4-3ubuntu5]
+libnghttp2-14/noble-updates 1.59.0-1ubuntu0.2 amd64 [upgradable from: 1.59.0-1ubuntu0.1]
+libnghttp2-14/noble-updates 1.59.0-1ubuntu0.2 i386 [upgradable from: 1.59.0-1ubuntu0.1]
+libnl-3-200/noble-updates 3.7.0-0.3build1.1 amd64 [upgradable from: 3.7.0-0.3build1]
+libnl-genl-3-200/noble-updates 3.7.0-0.3build1.1 amd64 [upgradable from: 3.7.0-0.3build1]
+libnl-route-3-200/noble-updates 3.7.0-0.3build1.1 amd64 [upgradable from: 3.7.0-0.3build1]
+libnm0/noble-updates 1.46.0-1ubuntu2.2 amd64 [upgradable from: 1.46.0-1ubuntu2]
+libnss-mymachines/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+libnss-sss/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+libnss-systemd/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+libnvme1t64/noble-updates 1.8-3ubuntu1 amd64 [upgradable from: 1.8-3build1]
+libosmesa6/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+libosmesa6/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+libpackagekit-glib2-18/noble-updates 1.2.8-2ubuntu1.2 amd64 [upgradable from: 1.2.8-2build3]
+libpam-sss/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+libpam-systemd/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+libpcre2-16-0/noble-updates 10.42-4ubuntu2.1 amd64 [upgradable from: 10.42-4ubuntu2]
+libpcre2-32-0/noble-updates 10.42-4ubuntu2.1 amd64 [upgradable from: 10.42-4ubuntu2]
+libpcre2-8-0/noble-updates 10.42-4ubuntu2.1 amd64 [upgradable from: 10.42-4ubuntu2]
+libpcre2-8-0/noble-updates 10.42-4ubuntu2.1 i386 [upgradable from: 10.42-4ubuntu2]
+libpipewire-0.3-0t64/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+libpipewire-0.3-common/noble-updates,noble-updates 1.0.5-1ubuntu3 all [upgradable from: 1.0.5-1ubuntu1]
+libpipewire-0.3-modules/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+libplymouth5/noble-updates 24.004.60-1ubuntu7.1 amd64 [upgradable from: 24.004.60-1ubuntu7]
+libpolkit-agent-1-0/noble-updates 124-2ubuntu1.24.04.2 amd64 [upgradable from: 124-2ubuntu1]
+libpolkit-gobject-1-0/noble-updates 124-2ubuntu1.24.04.2 amd64 [upgradable from: 124-2ubuntu1]
+libproc2-0/noble-updates 2:4.0.4-4ubuntu3.2 amd64 [upgradable from: 2:4.0.4-4ubuntu3]
+libsnmp-base/noble-updates,noble-updates 5.9.4+dfsg-1.1ubuntu3.1 all [upgradable from: 5.9.4+dfsg-1.1ubuntu3]
+libsnmp40t64/noble-updates 5.9.4+dfsg-1.1ubuntu3.1 amd64 [upgradable from: 5.9.4+dfsg-1.1ubuntu3]
+libsnmp40t64/noble-updates 5.9.4+dfsg-1.1ubuntu3.1 i386 [upgradable from: 5.9.4+dfsg-1.1ubuntu3]
+libspa-0.2-bluetooth/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+libspa-0.2-modules/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+libsqlite3-0/noble-updates 3.45.1-1ubuntu2.1 amd64 [upgradable from: 3.45.1-1ubuntu2]
+libsqlite3-0/noble-updates 3.45.1-1ubuntu2.1 i386 [upgradable from: 3.45.1-1ubuntu2]
+libsss-certmap0/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+libsss-idmap0/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+libsss-nss-idmap0/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+libsystemd-shared/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+libsystemd0/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+libsystemd0/noble-updates 255.4-1ubuntu8.6 i386 [upgradable from: 255.4-1ubuntu8.4]
+libudev1/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+libudev1/noble-updates 255.4-1ubuntu8.6 i386 [upgradable from: 255.4-1ubuntu8.4]
+libunistring5/noble-updates 1.1-2build1.1 amd64 [upgradable from: 1.1-2build1]
+libunistring5/noble-updates 1.1-2build1.1 i386 [upgradable from: 1.1-2build1]
+libunwind8/noble-updates 1.6.2-3build1.1 amd64 [upgradable from: 1.6.2-3build1]
+libunwind8/noble-updates 1.6.2-3build1.1 i386 [upgradable from: 1.6.2-3build1]
+libvirt-clients/noble-updates 10.0.0-2ubuntu8.6 amd64 [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-daemon-config-network/noble-updates,noble-updates 10.0.0-2ubuntu8.6 all [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-daemon-config-nwfilter/noble-updates,noble-updates 10.0.0-2ubuntu8.6 all [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-daemon-driver-qemu/noble-updates 10.0.0-2ubuntu8.6 amd64 [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-daemon-system-systemd/noble-updates,noble-updates 10.0.0-2ubuntu8.6 all [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-daemon-system/noble-updates 10.0.0-2ubuntu8.6 amd64 [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-daemon/noble-updates 10.0.0-2ubuntu8.6 amd64 [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt-l10n/noble-updates,noble-updates 10.0.0-2ubuntu8.6 all [upgradable from: 10.0.0-2ubuntu8.5]
+libvirt0/noble-updates 10.0.0-2ubuntu8.6 amd64 [upgradable from: 10.0.0-2ubuntu8.5]
+libxatracker2/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+linux-base/noble-updates,noble-updates 4.5ubuntu9+24.04.1 all [upgradable from: 4.5ubuntu9]
+login/noble-updates 1:4.13+dfsg1-4ubuntu3.2 amd64 [upgradable from: 1:4.13+dfsg1-4ubuntu3]
+lvm2/noble-updates 2.03.16-3ubuntu3.2 amd64 [upgradable from: 2.03.16-3ubuntu3.1]
+mesa-va-drivers/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+mesa-va-drivers/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+mesa-vdpau-drivers/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+mesa-vdpau-drivers/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+mesa-vulkan-drivers/noble-updates 24.2.8-1ubuntu1~24.04.1 amd64 [upgradable from: 24.0.9-0ubuntu0.3]
+mesa-vulkan-drivers/noble-updates 24.2.8-1ubuntu1~24.04.1 i386 [upgradable from: 24.0.9-0ubuntu0.3]
+mtr-tiny/noble-updates 0.95-1.1ubuntu0.1 amd64 [upgradable from: 0.95-1.1build2]
+nautilus-data/noble-updates,noble-updates 1:46.2-0ubuntu0.3 all [upgradable from: 1:46.2-0ubuntu0.2]
+netplan-generator/noble-updates 1.1.2-2~ubuntu24.04.1 amd64 [upgradable from: 1.0.1-1ubuntu2~24.04.1]
+netplan.io/noble-updates 1.1.2-2~ubuntu24.04.1 amd64 [upgradable from: 1.0.1-1ubuntu2~24.04.1]
+network-manager-config-connectivity-ubuntu/noble-updates,noble-updates 1.46.0-1ubuntu2.2 all [upgradable from: 1.46.0-1ubuntu2]
+network-manager/noble-updates 1.46.0-1ubuntu2.2 amd64 [upgradable from: 1.46.0-1ubuntu2]
+osinfo-db/noble-updates,noble-updates 0.20250124-0ubuntu0.24.04.1 all [upgradable from: 0.20240523-0ubuntu0.24.04.1]
+packagekit-tools/noble-updates 1.2.8-2ubuntu1.2 amd64 [upgradable from: 1.2.8-2build3]
+packagekit/noble-updates 1.2.8-2ubuntu1.2 amd64 [upgradable from: 1.2.8-2build3]
+passwd/noble-updates 1:4.13+dfsg1-4ubuntu3.2 amd64 [upgradable from: 1:4.13+dfsg1-4ubuntu3]
+pci.ids/noble-updates,noble-updates 0.0~2024.03.31-1ubuntu0.1 all [upgradable from: 0.0~2024.03.31-1]
+pipewire-alsa/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+pipewire-audio/noble-updates,noble-updates 1.0.5-1ubuntu3 all [upgradable from: 1.0.5-1ubuntu1]
+pipewire-bin/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+pipewire-pulse/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+pipewire/noble-updates 1.0.5-1ubuntu3 amd64 [upgradable from: 1.0.5-1ubuntu1]
+pkexec/noble-updates 124-2ubuntu1.24.04.2 amd64 [upgradable from: 124-2ubuntu1]
+plymouth-label/noble-updates 24.004.60-1ubuntu7.1 amd64 [upgradable from: 24.004.60-1ubuntu7]
+plymouth-theme-spinner/noble-updates 24.004.60-1ubuntu7.1 amd64 [upgradable from: 24.004.60-1ubuntu7]
+plymouth-theme-ubuntu-text/noble-updates 24.004.60-1ubuntu7.1 amd64 [upgradable from: 24.004.60-1ubuntu7]
+plymouth/noble-updates 24.004.60-1ubuntu7.1 amd64 [upgradable from: 24.004.60-1ubuntu7]
+policykit-1/noble-updates 124-2ubuntu1.24.04.2 amd64 [upgradable from: 124-2ubuntu1]
+polkitd/noble-updates 124-2ubuntu1.24.04.2 amd64 [upgradable from: 124-2ubuntu1]
+procps/noble-updates 2:4.0.4-4ubuntu3.2 amd64 [upgradable from: 2:4.0.4-4ubuntu3]
+python-apt-common/noble-updates,noble-updates 2.7.7ubuntu4 all [upgradable from: 2.7.7ubuntu3]
+python3-apt/noble-updates 2.7.7ubuntu4 amd64 [upgradable from: 2.7.7ubuntu3]
+python3-netplan/noble-updates 1.1.2-2~ubuntu24.04.1 amd64 [upgradable from: 1.0.1-1ubuntu2~24.04.1]
+python3-paramiko/noble-updates,noble-updates 2.12.0-2ubuntu4.1 all [upgradable from: 2.12.0-2ubuntu4]
+python3-sss/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+rsyslog/noble-updates 8.2312.0-3ubuntu9.1 amd64 [upgradable from: 8.2312.0-3ubuntu9]
+snapd/noble-updates 2.67.1+24.04 amd64 [upgradable from: 2.66.1+24.04]
+sssd-ad-common/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-ad/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-common/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-ipa/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-krb5-common/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-krb5/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-ldap/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd-proxy/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+sssd/noble-updates 2.9.4-1.1ubuntu6.2 amd64 [upgradable from: 2.9.4-1.1ubuntu6.1]
+systemd-container/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+systemd-dev/noble-updates,noble-updates 255.4-1ubuntu8.6 all [upgradable from: 255.4-1ubuntu8.4]
+systemd-hwe-hwdb/noble-updates,noble-updates 255.1.4 all [upgradable from: 255.1.3]
+systemd-oomd/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+systemd-resolved/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+systemd-sysv/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+systemd-timesyncd/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+systemd/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+teams-for-linux/stable 2.0.11 amd64 [upgradable from: 2.0.3]
+thermald/noble-updates 2.5.6-2ubuntu0.24.04.2 amd64 [upgradable from: 2.5.6-2ubuntu0.24.04.1]
+ubuntu-drivers-common/noble-updates 1:0.9.7.6ubuntu3.2 amd64 [upgradable from: 1:0.9.7.6ubuntu3]
+ubuntu-kernel-accessories/noble-updates 1.539.2 amd64 [upgradable from: 1.539.1]
+ubuntu-minimal/noble-updates 1.539.2 amd64 [upgradable from: 1.539.1]
+ubuntu-pro-client-l10n/noble-updates 34~24.04 amd64 [upgradable from: 32.3.1~24.04]
+ubuntu-pro-client/noble-updates 34~24.04 amd64 [upgradable from: 32.3.1~24.04]
+ubuntu-standard/noble-updates 1.539.2 amd64 [upgradable from: 1.539.1]
+udev/noble-updates 255.4-1ubuntu8.6 amd64 [upgradable from: 255.4-1ubuntu8.4]
+virt-manager/noble,noble 1:5.0.0-1xtradeb1.2404.1 all [upgradable from: 1:4.1.0-3ubuntu0.1]
+virtinst/noble,noble 1:5.0.0-1xtradeb1.2404.1 all [upgradable from: 1:4.1.0-3ubuntu0.1]
+wine-stable-amd64/jammy 10.0.0.0~jammy-1 amd64 [upgradable from: 9.0.0.0~jammy-1]
+wine-stable-i386/jammy 10.0.0.0~jammy-1 i386 [upgradable from: 9.0.0.0~jammy-1]
+wine-stable/jammy 10.0.0.0~jammy-1 amd64 [upgradable from: 9.0.0.0~jammy-1]
+winehq-stable/jammy 10.0.0.0~jammy-1 amd64 [upgradable from: 9.0.0.0~jammy-1]
+xdg-desktop-portal/noble-updates 1.18.4-1ubuntu2.24.04.1 amd64 [upgradable from: 1.18.4-1ubuntu2]
+xfsprogs/noble-updates 6.6.0-1ubuntu2.1 amd64 [upgradable from: 6.6.0-1ubuntu2]
+xserver-common/noble-updates,noble-updates 2:21.1.12-1ubuntu1.3 all [upgradable from: 2:21.1.12-1ubuntu1.2]
+xserver-xephyr/noble-updates 2:21.1.12-1ubuntu1.3 amd64 [upgradable from: 2:21.1.12-1ubuntu1.2]
+xserver-xorg-core/noble-updates 2:21.1.12-1ubuntu1.3 amd64 [upgradable from: 2:21.1.12-1ubuntu1.2]
+xserver-xorg-legacy/noble-updates 2:21.1.12-1ubuntu1.3 amd64 [upgradable from: 2:21.1.12-1ubuntu1.2]
+yt-dlp/noble,noble 2025.03.31-1xtradeb2.2404.1 all [upgradable from: 2025.03.27-1xtradeb1.2404.1]
+zip/noble-updates 3.0-13ubuntu0.2 amd64 [upgradable from: 3.0-13build1]
+
+=== NTP Synchronization Check ===
+System clock synchronized: yes
+              NTP service: active
+
+=== Central Logging Check (ELK / Splunk) ===
+
+Checking Filebeat:
+[INFO] Filebeat is not active
+
+Checking Splunk Forwarder:
+[INFO] Splunk Forwarder is not active
+
+Checking rsyslog remote targets:
+/etc/rsyslog.conf:*.* @localhost@514
+
+=== CIS Security Checks ===
+
+1.1.1 Disable cramfs:
+[OK] cramfs is disabled
+
+1.1.2 Disable freevxfs:
+[OK] freevxfs is disabled
+
+5.2.1 sshd_config Permissions:
+[INFO] sshd_config file not found
+
+=== Audit Complete ===
+End Time: Sun Apr 27 09:05:30 AM +0330 2025
+
+Notes:
+1. This is a basic audit report
+2. Use advanced tools for full compliance checking
+3. Report saved at: CIS_Audit_Report_192_168_43_163_2025-04-27_09-05-25.txt
+4. Time synchronization with NTP was checked
+5. Logging to ELK/Splunk or remote rsyslog was inspected
+6. SSH configuration was thoroughly checked
+7. Web servers (Apache/Nginx) were checked
