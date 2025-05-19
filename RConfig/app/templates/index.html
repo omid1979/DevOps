@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>بررسی وضعیت SSH و ارسال کانفیگ</title>
+    <style>
+        .circle {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .green { background-color: #4CAF50; }
+        .red { background-color: #f44336; }
+    </style>
+</head>
+<body>
+    <h2>لیست آی‌پی‌ها و وضعیت SSH</h2>
+    <form method="post">
+        <table border="1" cellpadding="5">
+            <tr><th>انتخاب</th><th>آی‌پی</th><th>وضعیت SSH</th></tr>
+            {% for ip in ips %}
+            <tr>
+                <td><input type="radio" name="selected_ip" value="{{ ip }}"></td>
+                <td>{{ ip }}</td>
+                <td>
+                    {% if status[ip] %}
+                        <span class="circle green"></span>
+                    {% else %}
+                        <span class="circle red"></span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <label>نام کاربری SSH: <input type="text" name="username" required></label><br><br>
+	<!-- <label>رمز عبور SSH: <input type="password" name="password" required></label><br><br> -->
+        <button type="submit">ارسال فایل کانفیگ</button>
+    </form>
+    <br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li style="color: {% if category == 'error' %}red{% else %}green{% endif %};">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
+
