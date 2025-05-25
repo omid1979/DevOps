@@ -1,8 +1,8 @@
-Iptables
+iptables
 iproute2
-Tc
+tc
 wondershaper
-VLAN
+vlan 
 dnsmasq
 net-snmp
 snortt
@@ -16,15 +16,20 @@ rsync
 rsyslog
 wiregaurd
 strongswan
-Openvpn
-Easy-rsa
-Nginx
+openvpn
+easy-rsa
+nginx
 tcpdump
-Map
-Ntpsec
-Keepalived
-Pacemaker
-Corosync
-webmin
+nmap 
+ntpsec
 
+keepalived
+pacemaker
+corosync
+
+webmin
+ajenti
+Cockpit
+cloudpanel
+gnupanel
 
