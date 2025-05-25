@@ -1,0 +1,5 @@
+---
+rke2_role: agent
+rke2_agent_options:
+  - "node-label: nodetype=worker"
+

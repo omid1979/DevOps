@@ -1,0 +1,259 @@
+version: '3.8'
+
+services:
+  # 1. First Nginx Server with PHP
+  nginx_php_1:
+    image: nginx:latest
+    volumes:
+      - nginx_php_data_1:/usr/share/nginx/html
+    ports:
+      - "8081:80"
+    depends_on:
+      - php_1
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"    # 0.5 CPU cores
+          memory: 512M   # 512 MB of RAM
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+  php_1:
+    image: php:8.1-fpm
+    volumes:
+      - nginx_php_data_1:/usr/share/nginx/html
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+  # 2. Second Nginx Server with PHP
+  nginx_php_2:
+    image: nginx:latest
+    volumes:
+      - nginx_php_data_2:/usr/share/nginx/html
+    ports:
+      - "8082:80"
+    depends_on:
+      - php_2
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+  php_2:
+    image: php:8.1-fpm
+    volumes:
+      - nginx_php_data_2:/usr/share/nginx/html
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+  # 3. First Nginx Server with Autoindex
+  nginx_autoindex_1:
+    image: nginx:latest
+    volumes:
+      - nginx_autoindex_data_1:/usr/share/nginx/html
+    command: "/bin/sh -c 'echo \"server { listen 80; location / { autoindex on; } }\" > /etc/nginx/conf.d/default.conf && nginx -g \"daemon off;\"'"
+    ports:
+      - "8083:80"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: 256M
+        reservations:
+          cpus: "0.1"
+          memory: 128M
+
+  # 4. Second Nginx Server with Autoindex
+  nginx_autoindex_2:
+    image: nginx:latest
+    volumes:
+      - nginx_autoindex_data_2:/usr/share/nginx/html
+    command: "/bin/sh -c 'echo \"server { listen 80; location / { autoindex on; } }\" > /etc/nginx/conf.d/default.conf && nginx -g \"daemon off;\"'"
+    ports:
+      - "8084:80"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: 256M
+        reservations:
+          cpus: "0.1"
+          memory: 128M
+
+  # 5. HAProxy for Load Balancing
+  haproxy:
+    image: haproxy:latest
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - "80:80"
+      - "8404:8404"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+  # 6. MySQL Database
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+  # 7. Zabbix Server with MySQL
+  zabbix:
+    image: zabbix/zabbix-server-mysql:latest
+    environment:
+      DB_SERVER_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpassword
+      MYSQL_DATABASE: zabbix
+    ports:
+      - "10051:10051"
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1G
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+  # 8. Redis Server
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: 256M
+        reservations:
+          cpus: "0.1"
+          memory: 128M
+
+  # 9. NTP Server
+  ntp:
+    image: cturra/ntp:latest
+    ports:
+      - "123:123/udp"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 128M
+        reservations:
+          cpus: "0.1"
+          memory: 64M
+
+  # 10. Nexus Repository
+  nexus:
+    image: sonatype/nexus3:latest
+    volumes:
+      - nexus_data:/nexus-data
+    ports:
+      - "8081:8081"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 2G
+        reservations:
+          cpus: "0.5"
+          memory: 1G
+
+  # 11. Git Server (Gitea)
+  git:
+    image: gitea/gitea:latest
+    volumes:
+      - git_data:/data
+    ports:
+      - "3000:3000"
+      - "222:22"
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
+
+# Volumes for persistence
+volumes:
+  nginx_php_data_1:
+  nginx_php_data_2:
+  nginx_autoindex_data_1:
+  nginx_autoindex_data_2:
+  mysql_data:
+  nexus_data:
+  git_data:
+
+# Shared network
+networks:
+  my_network:
+    driver: bridge
+

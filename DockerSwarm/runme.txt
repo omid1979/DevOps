@@ -1,0 +1,22 @@
+1- two nginx server1 with php using volume 
+2- two nginx server 2 using volume for data store on http autoindex=on
+3- haproxy with keepalive for load balance and failover
+4- mysql database with volume 
+5- zabbix server with database 
+6- redis-server
+7- ntp server
+8- docker swarm to manage container between two hosts
+9- nexus repository 
+10- git
+
+
+# on main host:
+	docker swarm init
+# on second host:
+	docker stack deploy -c docker-compose.yml my_stack
+
+# without swarm 
+	docker-compose up -d
+
+
+

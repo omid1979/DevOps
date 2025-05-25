@@ -1,0 +1,103 @@
+# Terraform configuration for provisioning 3 Debian VMs on Ubuntu Desktop using libvirt
+
+terraform {
+  required_providers {
+    libvirt = {
+      source  = "dmacvicar/libvirt"
+      version = "0.7.6"
+    }
+  }
+}
+
+# Configure the libvirt provider
+provider "libvirt" {
+  uri = "qemu:///system"
+}
+
+# Define the storage pool
+resource "libvirt_pool" "debian_pool" {
+  name = "debian_pool"
+  type = "dir"
+  path = "/var/lib/libvirt/images/debian_pool"
+}
+
+# Define the base Debian image volume
+resource "libvirt_volume" "debian_base" {
+  name   = "debian-12-base.qcow2"
+  pool   = libvirt_pool.debian_pool.name
+  source = "/opt/ISO/debian-12-generic-amd64.qcow2" # Update with actual path
+  format = "qcow2"
+}
+
+# Define volumes for each VM
+resource "libvirt_volume" "debian_disk" {
+  count          = 10
+  name           = "debian-vm-${count.index + 1}-disk.qcow2"
+  pool           = libvirt_pool.debian_pool.name
+  base_volume_id = libvirt_volume.debian_base.id
+  size           = 10737418240 # 10 GB
+  format         = "qcow2"
+}
+
+# Define cloud-init configuration
+resource "libvirt_cloudinit_disk" "cloudinit" {
+  count = 10
+  name  = "cloudinit-${count.index + 1}.iso"
+  pool  = libvirt_pool.debian_pool.name
+
+  user_data = <<EOF
+#cloud-config
+hostname: debian-vm-${count.index + 1}
+manage_etc_hosts: true
+users:
+  - name: admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCb6YR4KE3QWUPBDNVtWQT+VZLxIYkeiTClHjpVTLX5e7b99mXpj6Nvi8offj4cse8LpyYDCAfK111+OtFn4x2V+brf/tmnV/eBTxsDhvY3CMzvVxYayiB0qvfw8oUu0IaBXhOtHGxy79wTy1GqwihP+iKW/7yvtmplX/FpuwSxhG/KDraPu70FG+B4wX4sS2LXBmT+baBQoVFi2G2sUZUa3iaInd0ar+AHx01qlltv/zkQaK9gFSyck258YL2S1uVbZO/+anXBHreaKhoTR0YeVIJPlBuQWzppeKsbiCOftZpGWYLMZRz5Jw95rRTSc7C88Wp7KCNVa+1o7vniZXEXsqkiuTlqUiUxTdNxzCc2h3TOHRw6O/BvAusoGBs5I79/2jfUTrrRNCsIuH16qXk5dhYm16IAcIwgvHysugsOdDOrlHsWUYRh/yi8EdswExhrYg5+xvt37I5K9Nfsh23O/pH7evyDB3pBKdig7LwUxtwIfxWGXRJIOD7GD+ELOvXLJPnDZ9mhs7TwqThwGkK78WP9QykRcbjN/fVPsxgqPQl7FnTHauNNddyMp5If49he+lf5ZWHdimImIDlgFMjNBoc8QVHovR1ui1ltdX+t7jrq7HMXEmqgeiEVv/QOkL5HYp3453cQk3SvnR006INIQDG3N9Tb3Lu3cTXjD43mJw== root@omid 
+    shell: /bin/bash
+package_update: true
+package_upgrade: true
+packages:
+  - vim
+  - curl
+runcmd:
+  - [ systemctl, enable, --now, ssh ]
+EOF
+}
+
+# Define the VMs
+resource "libvirt_domain" "debian_vm" {
+  count      = 10
+  name       = "debian-vm-${count.index + 1}"
+  memory     = 2048 # 2 GB
+  vcpu       = 2
+  autostart  = true
+
+  cloudinit = libvirt_cloudinit_disk.cloudinit[count.index].id
+
+  disk {
+    volume_id = libvirt_volume.debian_disk[count.index].id
+  }
+
+  network_interface {
+    network_name = "default"
+    wait_for_lease = true
+  }
+
+  console {
+    type        = "pty"
+    target_port = "0"
+    target_type = "serial"
+  }
+
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
+    autoport    = true
+  }
+}
+
+# Output the IP addresses of the VMs
+output "vm_ips" {
+  value = libvirt_domain.debian_vm[*].network_interface[0].addresses
+}
