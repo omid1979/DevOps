@@ -2,13 +2,14 @@ version: '3'
 
 services:
   tele:
-    image: asterisk18:v1.0.1
+    image: asterisk18-dhcp:v2.0.2
     container_name: asterisk 
     network_mode: bridge                    
     ports:
       - "5060:5060/udp"                     
       - "5060:5060"                         
-      - "10000-10099:10000-10099/udp"       
+      - "10000-10100:10000-10100/udp"
+      - "67-68/udp"       
     environment:
       - HOSTNAME=asterisk
     volumes:
