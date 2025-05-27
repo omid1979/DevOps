@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    container_name: gitlab
+    hostname: gitlab
+    ports:
+      - "3131:80"
+      - "3443:443"
+      - "2131:22"
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2131
+    volumes:
+      - gitlab-config:/etc/gitlab
+      - gitlab-logs:/var/log/gitlab
+      - gitlab-data:/var/opt/gitlab
+    restart: unless-stopped
+
+  semaphore:
+    image: ansible/semaphore:latest
+    container_name: semaphore
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      - SEMAPHORE_DB_DIALECT=samaphore
+      - SEMAPHORE_DB_HOST=postgres
+      - SEMAPHORE_DB_PORT=5432
+      - SEMAPHORE_DB_USER=samaphore
+      - SEMAPHORE_DB_PASS=pgs@76411
+      - SEMAPHORE_DB=samaphore
+      - SEMAPHORE_ADMIN=admin
+      - SEMAPHORE_ADMIN_EMAIL=o.hosseini@sadad.co.ir
+      - SEMAPHORE_ADMIN_NAME=admin
+      - SEMAPHORE_ADMIN_PASSWORD=cluster
+      - SEMAPHORE_ACCESS_KEY_ENCRYPTION=541bca130fb7d60a74a8a8710bfd60e6
+    volumes:
+      - semaphore-data:/var/lib/semaphore
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=semaphore
+      - POSTGRES_PASSWORD=pgs@76411
+      - POSTGRES_DB=semaphore
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  ansible-rsync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ansible-rsync
+    volumes:
+      - ./ansible-playbooks:/ansible-playbooks
+    command: tail -f /dev/null
+    restart: unless-stopped
+
+volumes:
+  gitlab-config:
+  gitlab-logs:
+  gitlab-data:
+  semaphore-data:
+  postgres-data:
+
