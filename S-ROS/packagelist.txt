@@ -1,3 +1,7 @@
+
+apt install net-tools iptables iproute2 wondershaper vlan snmpd fail2ban rsync rsyslog wireguard openvpn easy-rsa tcpdump tcptraceroute traceroute ntpsec pacemaker corosync cockpit
+
+
 iptables
 iproute2
 tc
