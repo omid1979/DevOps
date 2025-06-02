@@ -1,0 +1,36 @@
+===== Server Status Report =====
+Generated on: 2025-06-02 16:30:42
+===============================
+
+System Information:
+-------------------
+Hostname: simorgh
+System Date: 2025-06-02 16:30:42
+Machine ID: 754f76739f07456ba29191358c0f8ee1
+UUID: N/A
+IP Address: 192.168.43.163
+Gateway: 10.255.0.1
+System Uptime: 1 day, 6 hours, 51 minutes
+Load Average: 2.30 2.06 2.21
+
+Resource Usage:
+-------------------
+CPU Usage: 6.6%
+Memory: 10Gi/15Gi (Free: 3.0Gi)
+
+Disk Usage:
+-------------------
+/dev/sda2 | Type: xfs | Size: 223G | Used: 104G | Avail: 119G | Use%: 47% | Mounted on: /
+/dev/sda1 | Type: vfat | Size: 975M | Used: 6.2M | Avail: 968M | Use%: 1% | Mounted on: /boot/efi
+/dev/sdb1 | Type: ext4 | Size: 916G | Used: 655G | Avail: 216G | Use%: 76% | Mounted on: /opt
+
+Network Interfaces:
+-------------------
+Interface Name | IP Address | Sending/Receiving | Status
+\nenp3s0 | 192.168.43.163 | Sending: 505.83 MB | Receiving: 2.47 GB | Status: up\nwlp0s20f3 | No IP | Sending: 0 Bytes | Receiving: 0 Bytes | Status: down\nvirbr0 | 192.168.122.1 | Sending: 94.89 MB | Receiving: 134.84 MB | Status: up\ndocker0 | 172.17.0.1 | Sending: 56.76 KB | Receiving: 1.25 KB | Status: up\nbr-67b050c4df96 | 172.18.0.1 | Sending: 0 Bytes | Receiving: 0 Bytes | Status: down\nbr-d3e32f1f3136 | 172.20.0.1 | Sending: 0 Bytes | Receiving: 0 Bytes | Status: down\nvethb5d6415@if9 | No IP | Sending: N/A | Receiving: N/A | Status: N/A\nvethd1cd0d1@if11 | No IP | Sending: N/A | Receiving: N/A | Status: N/A\nvnet1 | No IP | Sending: 11.62 MB | Receiving: 98.86 MB | Status: unknown\nvnet2 | No IP | Sending: 2.92 MB | Receiving: 4.26 KB | Status: unknown\nvnet3 | No IP | Sending: 2.92 MB | Receiving: 4.26 KB | Status: unknown\ntun0 | 10.255.0.26 | Sending: 24.56 MB | Receiving: 121.90 MB | Status: unknown
+
+Service Status:
+-------------------
+\n    nginx: Installed (active)\n    wireguard: Not Installed\n    ffr: Not Installed
+
+===============================
