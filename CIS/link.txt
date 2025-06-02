@@ -1,2 +1,3 @@
 https://ict.iau.ir/est/fa
+https://github.com/MVladislav/ansible-cis-ubuntu-2204
 
