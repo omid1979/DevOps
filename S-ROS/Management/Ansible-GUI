@@ -14,3 +14,13 @@ docker run --name semaphore \
   -d semaphoreui/semaphore:latest
 
 
+
+docker run --name semaphore \
+-p 3000:3000 \
+-e SEMAPHORE_DB_DIALECT=bolt \
+-e SEMAPHORE_ADMIN=admin \
+-e SEMAPHORE_ADMIN_PASSWORD=changeme \
+-e SEMAPHORE_ADMIN_NAME="Admin" \
+-e SEMAPHORE_ADMIN_EMAIL=admin@localhost \
+-d semaphoreui/semaphore:v2.14.12
+
