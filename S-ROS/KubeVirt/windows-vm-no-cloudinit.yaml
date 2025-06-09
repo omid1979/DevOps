@@ -1,0 +1,33 @@
+# windows-vm-no-cloudinit.yaml
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: windows-vm
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: windows-vm
+    spec:
+      domain:
+        cpu:
+          cores: 4
+        resources:
+          requests:
+            memory: 6Gi
+        devices:
+          disks:
+          - name: windowsdisk
+            disk:
+              bus: virtio
+        features:
+          acpi: {enabled: true}
+        firmware:
+          bootloader:
+            bios: {}
+      volumes:
+      - name: windowsdisk
+        persistentVolumeClaim:
+          claimName: windows-disk
+

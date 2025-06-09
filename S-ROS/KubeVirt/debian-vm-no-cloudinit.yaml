@@ -1,0 +1,30 @@
+# debian-vm-no-cloudinit.yaml
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: debian-vm
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: debian-vm
+    spec:
+      domain:
+        cpu:
+          cores: 2
+        resources:
+          requests:
+            memory: 1Gi
+        devices:
+          disks:
+          - name: rootdisk
+            disk:
+              bus: virtio
+        bootloader:
+          bios: {}
+      volumes:
+      - name: rootdisk
+        containerDisk:
+          image: kubevirt/debian-cloud
+
